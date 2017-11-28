@@ -7,16 +7,17 @@ function TodoItem({
 }) {
   return (
     <label>
-      <input
-        type='checkbox'
-        checked={ completed }
-        onChange={
+      <button
+        role='checkbox'
+        onClick={
           (event) => {
             console.log('Clicked checkbox', description);
             onToggleCompleted();
           }
         }
-      />
+      >
+        { completed ? '❎' : '✅' }
+      </button>
       { description }
     </label>
   )
