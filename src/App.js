@@ -13,28 +13,12 @@ class App extends Component {
     ]
   }
 
-  // onToggleItemAtIndex = (index) => {
-  //   this.setState((prevState) => {
-  //     const items = prevState.items
-  //     const item = items[index]
-  //     item.completed = !item.completed
-  //     return {
-  //       items: items
-  //     }
-  //   })
-  // }
-
   onToggleItemAtIndex = (index) => {
+    console.log(index);
     this.setState((prevState) => {
       const beforeItems = prevState.items
       const afterItems = beforeItems.map((item, currentIndex) => {
         if (currentIndex === index) {
-          // const copy = Object.assign(
-          //   {}, // Start with a blank object - otherwise, the item would be changed
-          //   item,
-          //   { completed: !item.completed }
-          // )
-          // return copy
           return {
             ...item,
             completed: !item.completed
@@ -50,6 +34,14 @@ class App extends Component {
       }
     })
   }
+
+  filterCompletedItem = (item) => (
+    item.completed === true ? item : null
+  )
+
+  filterIncompletedItem = (item) => (
+    item.completed === false ? item : null
+  )
 
   render() {
     const items = this.state.items
@@ -78,20 +70,45 @@ class App extends Component {
           <dt>Total Incomplete</dt>
           <dd>{ totalIncomplete }</dd>
         </dl>
+        <h2> Incomplete </h2>
         {
-          items.map((item, index) => (
-            <TodoItem
-              key={ index }
-              description={ item.description }
-              completed={ item.completed }
-              onToggleCompleted={
-                () => {
-                  this.onToggleItemAtIndex(index)
-                  console.log('TodoItem onToggleCompleted received', index);
-                }
-              }
-            />
-          ))
+          items.map((item, index) => {
+            if (this.filterIncompletedItem(item)) {
+              return (
+                <TodoItem
+                  key={ index}
+                  description={ item.description }
+                  completed={ item.completed }
+                  onToggleCompleted={
+                    () => {
+                      this.onToggleItemAtIndex(index)
+                      console.log('TodoItem onToggleCompleted received', index);
+                    }
+                  }
+                />
+              )
+            }
+          })
+        }
+        <h2>Complete</h2>
+        {
+          items.map((item, index) => {
+            if (this.filterCompletedItem(item)) {
+              return (
+                <TodoItem
+                  key={index}
+                  description={item.description}
+                  completed={ item.completed}
+                  onToggleCompleted={
+                    () => {
+                      this.onToggleItemAtIndex(index)
+                      console.log('TodoItem onToggleCompleted received', item);
+                    }
+                  }
+                />
+              )
+            }
+          })
         }
       </div>
     );

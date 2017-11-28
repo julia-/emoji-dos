@@ -1,4 +1,5 @@
 import React from 'react'
+import default from '../App';
 
 function TodoItem({
   description,
@@ -16,7 +17,7 @@ function TodoItem({
           }
         }
       >
-        { completed ? '❎' : '✅' }
+        {completed ? '✅' : '❎' }
       </button>
       { description }
     </label>
