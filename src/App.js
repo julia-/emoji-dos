@@ -3,15 +3,19 @@ import logo from './logo.svg';
 import './App.css';
 import TodoItem from './components/TodoItem'
 
-const items = [
-  { description: 'First', completed: true },
-  { description: 'Second', completed: true },
-  { description: 'Third', completed: false },
-  { description: 'Fourth', completed: false }
-]
 
 class App extends Component {
+  state = {
+    items: [
+      { description: 'First', completed: true },
+      { description: 'Second', completed: true },
+      { description: 'Third', completed: false },
+      { description: 'Fourth', completed: false }
+    ]
+  }
+
   render() {
+    const items = this.state.items
     return (
       <div className="App">
         {

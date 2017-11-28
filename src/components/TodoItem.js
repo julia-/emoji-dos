@@ -6,7 +6,15 @@ function TodoItem({
 }) {
   return (
     <label>
-      <input type='checkbox' checked={ completed } />
+      <input
+        type='checkbox'
+        checked={ completed }
+        onChange={
+          (event) => {
+            console.log('Toggled', description);
+          }
+        }
+      />
       { description }
     </label>
   )
